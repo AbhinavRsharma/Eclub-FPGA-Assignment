@@ -1,0 +1,71 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   13:11:54 05/24/2019
+// Design Name:   comp8bit
+// Module Name:   /home/ise/lab2_a3/comp8bit_test.v
+// Project Name:  lab2_a3
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: comp8bit
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module comp8bit_test;
+
+	// Inputs
+	reg [0:7] a;
+	reg [0:7] b;
+
+	// Outputs
+	wire [0:7] q;
+	wire [0:7] g;
+	wire [0:7] l;
+	wire equal;
+	wire less;
+	wire greater;
+
+	// Instantiate the Unit Under Test (UUT)
+	comp8bit uut (
+		.a(a), 
+		.b(b),
+		.g(g),
+		.l(l),
+		.q(q),
+		.equal(equal),
+		.greater(greater),
+		.less(less)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 8'b10101010;
+		b = 8'b11100010;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		
+		a = 8'b00000000;
+		b = 8'b00000000;
+		
+		#100;
+		
+		a = 8'b01010101;
+		b = 8'b10101010;
+        
+		// Add stimulus here
+
+	end
+      
+endmodule
