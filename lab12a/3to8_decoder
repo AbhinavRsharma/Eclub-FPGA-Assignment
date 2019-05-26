@@ -1,0 +1,38 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    10:37:20 05/26/2019 
+// Design Name: 
+// Module Name:    decoder_8bit 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module decoder_8bit(
+    input a,
+    input b,
+    input c,
+    output [0:7] out
+    );
+	wire [0:7] out;
+	
+	assign out[0] = (a)&(b)&(c);
+	assign out[1] = (a)&(b)&(~c);
+	assign out[2] = (a)&(~b)&(c);
+	assign out[3] = (a)&(~b)&(~c);
+	assign out[4] = (~a)&(b)&(c);
+	assign out[5] = (~a)&(b)&(~c);
+	assign out[6] = (~a)&(~b)&(c);
+	assign out[7] = (~a)&(~b)&(~c);
+
+endmodule
