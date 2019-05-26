@@ -1,0 +1,43 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    07:36:35 05/24/2019 
+// Design Name: 
+// Module Name:    sum_6bit 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module sum_6bit(
+    input [0:5] a,
+    input [0:5] b,
+    output [0:5] carry,
+    output [0:6] s
+    );
+	genvar i;
+		assign carry[5] = a[5] & b[5];
+		assign s[6] = ((~a[5])&b[5])|((~b[5])&a[5]);
+	for( i=4; i >= 0; i = i-1)
+	begin
+		full_adder fa(
+			.a(a[i]),
+			.b(b[i]),
+			.cin(carry[i+1]),
+			.cout(carry[i]),
+			.sum(s[i+1])
+			);
+	end
+		
+		assign s[0] = carry[0];
+
+endmodule
