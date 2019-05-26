@@ -1,0 +1,69 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   07:45:04 05/24/2019
+// Design Name:   sum_main
+// Module Name:   /home/ise/lab3_a3/sum_main_test.v
+// Project Name:  lab3_a3
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: sum_main
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module sum_main_test;
+
+	// Inputs
+	reg [0:3] a;
+	reg [0:3] b;
+	reg [0:3] c;
+	reg [0:3] d;
+	reg [0:3] e;
+
+	// Outputs
+	wire [0:4] x;
+	wire [0:4] y;
+	wire [0:5] z;
+	wire [0:6] final;
+
+	// Instantiate the Unit Under Test (UUT)
+	sum_main uut (
+		.a(a), 
+		.b(b), 
+		.c(c), 
+		.d(d), 
+		.e(e), 
+		.x(x), 
+		.y(y), 
+		.z(z),
+		.final(final)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 4'b1010;
+		b = 4'b0010;
+		c = 4'b0100;
+		d = 4'b0001;
+		e = 4'b0101;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+		// Add stimulus here
+
+	end
+      
+endmodule
+
