@@ -1,0 +1,81 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   09:35:24 05/24/2019
+// Design Name:   comp1
+// Module Name:   /home/ise/lab2_a3/comp1_test.v
+// Project Name:  lab2_a3
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: comp1
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module comp1_test;
+
+	// Inputs
+	reg a;
+	reg b;
+	reg pre_q;
+	reg pre_g;
+	reg pre_l;
+
+	// Outputs
+	wire nex_g;
+	wire nex_l;
+	wire nex_q;
+
+	// Instantiate the Unit Under Test (UUT)
+	comp1 uut (
+		.pre_q(pre_q),
+		.pre_g(pre_g),
+		.pre_l(pre_l),
+		.a(a), 
+		.b(b), 
+		.nex_g(nex_g), 
+		.nex_l(nex_l), 
+		.nex_q(nex_q)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 1;
+		b = 0;
+		pre_q=1;
+		pre_g=0;
+		pre_l=0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		
+		a=1;
+		b=1;
+		
+		pre_q=0;
+		pre_g=1;
+		pre_l=0;
+		#100
+		a=0;
+		b=0;
+		
+		pre_q=1;
+		pre_g=0;
+		pre_l=0;
+		#100;
+        
+		// Add stimulus here
+
+	end
+      
+endmodule
