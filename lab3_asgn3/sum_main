@@ -1,0 +1,62 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    12:35:03 05/25/2019 
+// Design Name: 
+// Module Name:    sum_main 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module sum_main(
+    input [0:3] a,
+    input [0:3] b,
+    input [0:3] c,
+    input [0:3] d,
+    input [0:3] e,
+    output [0:4] x,
+    output [0:4] y,
+    output [0:5] z,
+    output [0:6] final
+    );
+	 wire [0:3] c41;
+	 wire [0:3] c42;
+	 wire [0:4] c5;
+	 wire [0:5] c6;
+	 
+	 sum_4bit s41(
+		.a(a),
+		.b(b),
+		.carry(c41),
+		.s(x)
+		);
+	 sum_4bit s42(
+		.a(c),
+		.b(d),
+		.carry(c42),
+		.s(y)
+		);
+	 sum_5bit s5(
+		.a(x),
+		.b(y),
+		.carry(c5),
+		.s(z)
+		);
+	 sum_6bit s6(
+		.a({2'b00,e}),
+		.b(z),
+		.carry(c6),
+		.s(final)
+		);
+
+endmodule
