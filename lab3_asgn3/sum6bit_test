@@ -1,0 +1,59 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   07:37:42 05/24/2019
+// Design Name:   sum_6bit
+// Module Name:   /home/ise/lab3_a3/sum_6bit_test.v
+// Project Name:  lab3_a3
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: sum_6bit
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module sum_6bit_test;
+
+	// Inputs
+	reg [0:5] a;
+	reg [0:5] b;
+
+	// Outputs
+	wire [0:5] carry;
+	wire [0:6] s;
+
+	// Instantiate the Unit Under Test (UUT)
+	sum_6bit uut (
+		.a(a), 
+		.b(b), 
+		.carry(carry), 
+		.s(s)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 6'b000000;
+		b = 6'b001101;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		a = 6'b010101;
+		b = 6'b101010;
+		#100;
+        
+		// Add stimulus here
+
+	end
+      
+endmodule
+
