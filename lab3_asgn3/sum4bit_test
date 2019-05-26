@@ -1,0 +1,60 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   07:02:44 05/24/2019
+// Design Name:   sum4bit
+// Module Name:   /home/ise/lab3_a3/sum4bit_test.v
+// Project Name:  lab3_a3
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: sum4bit
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module sum_4bit_test;
+
+	// Inputs
+	reg [0:3] a;
+	reg [0:3] b;
+
+	// Outputs
+	wire [0:3] carry;
+	wire [0:4] s;
+
+	// Instantiate the Unit Under Test (UUT)
+	sum4bit uut (
+		.a(a), 
+		.b(b), 
+		.carry(carry), 
+		.s(s)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 4'b1010;
+		b = 4'b1100;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		
+		a = 4'b0001;
+		b = 4'b0000;
+		#100;
+        
+		// Add stimulus here
+
+	end
+      
+endmodule
+
