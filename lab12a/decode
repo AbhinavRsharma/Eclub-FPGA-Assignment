@@ -19,6 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module decode(
+	 input push,
     output [0:7] out0,
     output [0:7] out1,
     output [0:7] out2,
@@ -26,10 +27,26 @@ module decode(
     output [0:7] out4,
     output [0:7] out5,
     output [0:7] out6,
-    output [0:7] out7
+    output [0:7] out7,
+	 output led0,
+	 output led1,
+	 output led2,
+	 output led3,
+	 output led4,
+	 output led5,
+	 output led6,
+	 output led7
     );
 	 
 	 reg [0:2] val [0:7];
+	 reg led0;
+	 reg led1;
+	 reg led2;
+	 reg led3;
+	 reg led4;
+	 reg led5;
+	 reg led6;
+	 reg led7;
 	 
 	 initial begin 
 			val[0] = 3'd3; 
@@ -145,5 +162,31 @@ module decode(
 		.out6(out7[6]),
 		.out7(out7[7])
 		);
-
+		initial begin
+		led7 = out0[0]^out1[0]^out2[0]^out3[0]^out4[0]^out5[0]^out6[0]^out7[0];
+		led6 = out0[1]^out1[1]^out2[1]^out3[1]^out4[1]^out5[1]^out6[1]^out7[1];
+		led5 = out0[2]^out1[2]^out2[2]^out3[2]^out4[2]^out5[2]^out6[2]^out7[2];
+		led4 = out0[3]^out1[3]^out2[3]^out3[3]^out4[3]^out5[3]^out6[3]^out7[3];
+		led3 = out0[4]^out1[4]^out2[4]^out3[4]^out4[4]^out5[4]^out6[4]^out7[4];
+		led2 = out0[5]^out1[5]^out2[5]^out3[5]^out4[5]^out5[5]^out6[5]^out7[5];
+		led1 = out0[6]^out1[6]^out2[6]^out3[6]^out4[6]^out5[6]^out6[6]^out7[6];
+		led0 = out0[7]^out1[7]^out2[7]^out3[7]^out4[7]^out5[7]^out6[7]^out7[7];
+		end
+		
+		always @( posedge push)
+		begin
+			led0 = led0^led1^led2^led3^led4^led5^led6^led7;
+		end
+		
+		always @( negedge push)
+		begin
+			led7 = out0[0]^out1[0]^out2[0]^out3[0]^out4[0]^out5[0]^out6[0]^out7[0];
+			led6 = out0[1]^out1[1]^out2[1]^out3[1]^out4[1]^out5[1]^out6[1]^out7[1];
+			led5 = out0[2]^out1[2]^out2[2]^out3[2]^out4[2]^out5[2]^out6[2]^out7[2];
+			led4 = out0[3]^out1[3]^out2[3]^out3[3]^out4[3]^out5[3]^out6[3]^out7[3];
+			led3 = out0[4]^out1[4]^out2[4]^out3[4]^out4[4]^out5[4]^out6[4]^out7[4];
+			led2 = out0[5]^out1[5]^out2[5]^out3[5]^out4[5]^out5[5]^out6[5]^out7[5];
+			led1 = out0[6]^out1[6]^out2[6]^out3[6]^out4[6]^out5[6]^out6[6]^out7[6];
+			led0 = out0[7]^out1[7]^out2[7]^out3[7]^out4[7]^out5[7]^out6[7]^out7[7];
+		end
 endmodule
