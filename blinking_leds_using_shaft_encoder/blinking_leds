@@ -1,0 +1,58 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    06:07:35 05/27/2019 
+// Design Name: 
+// Module Name:    blinking_leds 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module blinking_leds(
+    input a,
+    input b,
+    output led
+    );
+	reg led;
+	reg pre_a;
+	reg pre_b;
+	integer t = 100;
+	
+	initial begin
+		led = 0;
+		pre_a = 0;
+		pre_b = 0;
+	end
+	always begin
+		#(t/2) led = ~led;
+	end
+	
+	always @(a or b)
+	begin
+		if( (pre_a == 1) & (pre_b == 1))
+		begin
+			if( a == 0 )
+			begin 
+				t = t+20;
+			end
+			else
+			begin
+				t = t-20;
+			end
+		end
+		pre_a = a;
+		pre_b = b;
+	end
+	
+	
+endmodule
