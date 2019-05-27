@@ -22,17 +22,26 @@ module decoder_8bit(
     input a,
     input b,
     input c,
-    output [0:7] out
+    output out0,
+    output out1,
+    output out2,
+    output out3,
+    output out4,
+    output out5,
+    output out6,
+    output out7
+	 
     );
-	wire [0:7] out;
 	
-	assign out[0] = (a)&(b)&(c);
-	assign out[1] = (a)&(b)&(~c);
-	assign out[2] = (a)&(~b)&(c);
-	assign out[3] = (a)&(~b)&(~c);
-	assign out[4] = (~a)&(b)&(c);
-	assign out[5] = (~a)&(b)&(~c);
-	assign out[6] = (~a)&(~b)&(c);
-	assign out[7] = (~a)&(~b)&(~c);
+	
+	assign out0 = (~a)&(~b)&(~c);
+	assign out1 = (~a)&(~b)&(c);
+	assign out2 = (~a)&(b)&(~c);
+	assign out3 = (~a)&(b)&(c);
+	assign out4 = (a)&(~b)&(~c);
+	assign out5 = (a)&(~b)&(c);
+	assign out6 = (a)&(b)&(~c);
+	assign out7 = (a)&(b)&(c);
+	
 
 endmodule
