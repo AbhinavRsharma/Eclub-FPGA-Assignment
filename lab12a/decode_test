@@ -1,0 +1,78 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   14:49:55 05/26/2019
+// Design Name:   decode
+// Module Name:   /home/ise/lab12_a1/decode_test.v
+// Project Name:  lab12_a1
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: decode
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module decode_test;
+	reg push;
+	wire [0:7] out0;
+	wire [0:7] out1;
+	wire [0:7] out2;
+	wire [0:7] out3;
+	wire [0:7] out4;
+	wire [0:7] out5;
+	wire [0:7] out6;
+	wire [0:7] out7;
+	wire led0;
+	wire led1;
+	wire led2;
+	wire led3;
+	wire led4;
+	wire led5;
+	wire led6;
+	wire led7;
+
+	// Instantiate the Unit Under Test (UUT)
+	decode uut (
+		.push(push),
+		.out0(out0),
+		.out1(out1),
+		.out2(out2),
+		.out3(out3),
+		.out4(out4),
+		.out5(out5),
+		.out6(out6),
+		.out7(out7),
+		.led0(led0),
+		.led1(led1),
+		.led2(led2),
+		.led3(led3),
+		.led4(led4),
+		.led5(led5),
+		.led6(led6),
+		.led7(led7)
+	);
+
+	initial begin
+		push = 0;
+		// Wait 100 ns for global reset to finish
+		#100;
+      
+		// Add stimulus here
+
+	end
+	always begin
+		#50 push = ~push;
+	end
+      
+endmodule
+
