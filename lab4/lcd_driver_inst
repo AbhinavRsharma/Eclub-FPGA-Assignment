@@ -1,0 +1,37 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    11:18:39 05/30/2019 
+// Design Name: 
+// Module Name:    lcd_driver_inst 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module lcd_driver_inst(
+	 input clk,
+	 output lcd_rs,
+	 output lcd_w,
+	 output lcd_e,
+	 output db7,
+	 output db6,
+	 output db5,
+	 output db4
+    );
+	 
+	 wire lcd_rs, lcd_w, lcd_e, db7, db6, db5, db4;
+	 
+	 lcd_driver lcd1 ( clk, "Welcome to EE   ","IIT KANPUR      ", lcd_rs, lcd_w, lcd_e, db7, db6, db5, db4);
+
+
+endmodule
