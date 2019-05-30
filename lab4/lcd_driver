@@ -117,7 +117,7 @@ module lcd_driver(
 				endcase
 			end
 			
-			if((stt_next_line!=7)			////next line
+			if(stt_next_line!=7)			////next line
 			begin
 				case(stt_next_line)
 					0: begin
@@ -180,9 +180,9 @@ module lcd_driver(
 			end
 
 		end
-	end
-	else
-	begin
-		cnt = cnt+1;
+		else
+		begin
+			cnt = cnt+1;
+		end
 	end
 endmodule
