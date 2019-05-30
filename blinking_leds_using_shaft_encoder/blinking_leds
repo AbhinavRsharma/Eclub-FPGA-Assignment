@@ -21,20 +21,30 @@
 module blinking_leds(
     input a,
     input b,
+    input clk,
     output led
     );
 	reg led;
 	reg pre_a;
 	reg pre_b;
-	integer t = 100;
+	integer no_cycles = 20000;
+	integer counter = 0;
 	
 	initial begin
 		led = 0;
 		pre_a = 0;
 		pre_b = 0;
 	end
-	always begin
-		#(t/2) led = ~led;
+	always @(posedge clk)
+		if(counter >= no_cycles)
+		begin
+			led = ~led;
+			counter = 0;
+		end
+		else 
+		begin
+			counter = counter+1;
+		end
 	end
 	
 	always @(a or b)
@@ -43,11 +53,25 @@ module blinking_leds(
 		begin
 			if( a == 0 )
 			begin 
-				t = t+20;
+				if( no_cycles == 30000)
+				begin
+					no_cycles = 10000;
+				end
+				else 
+				begin
+					no_cycles = no_cycles + 500;
+				end
 			end
 			else
 			begin
-				t = t-20;
+				if( no_cycles == 10000)
+				begin
+					no_cycles = 30000;
+				end
+				else 
+				begin
+					no_cycles = no_cycles - 500;
+				end
 			end
 		end
 		pre_a = a;
