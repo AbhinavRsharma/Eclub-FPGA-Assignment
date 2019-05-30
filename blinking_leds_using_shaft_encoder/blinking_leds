@@ -27,7 +27,7 @@ module blinking_leds(
 	reg led;
 	reg pre_a;
 	reg pre_b;
-	integer no_cycles = 20000;
+	integer no_cycles = 10000;
 	integer counter = 0;
 	
 	initial begin
@@ -45,7 +45,6 @@ module blinking_leds(
 		begin
 			counter = counter+1;
 		end
-	end
 	
 	always @(a or b)
 	begin
