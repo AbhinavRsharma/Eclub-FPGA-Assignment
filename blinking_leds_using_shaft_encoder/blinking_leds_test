@@ -27,6 +27,7 @@ module blinking_leds_test;
 	// Inputs
 	reg a;
 	reg b;
+	reg clk;
 
 	// Outputs
 	integer temp = 1;
@@ -36,11 +37,18 @@ module blinking_leds_test;
 		.b(b), 
 		.led(led)
 	);
-
+	
+	
 	initial begin
 		a=0;
 		b=0;
+		clk=0;
 	end
+	
+	always begin
+		#5 clk = ~clk;
+	end
+	
 	
 	always begin
 		#50 a = ~a;
@@ -57,4 +65,3 @@ module blinking_leds_test;
 	
       
 endmodule
-
