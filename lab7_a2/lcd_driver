@@ -1,0 +1,188 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    07:48:57 05/30/2019 
+// Design Name: 
+// Module Name:    lcd_driver 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module lcd_driver(
+    input clk,     // 50MHz
+    input [0:127] line1,
+    input [0:127] line2,
+    output lcd_rs,
+    output lcd_w,
+    output lcd_e,
+    output db7,
+    output db6,
+    output db5,
+    output db4
+    );
+	reg lcd_rs, lcd_w, lcd_e, db7, db6, db5, db4;
+	integer cnt = 0;		       ////counter
+	reg [0:7] i_line1 = 0;
+	reg [0:7] i_line2 = 0;
+	reg [0:1] stt_line1 = 3;
+	reg [0:1] stt_line2 = 3;
+	reg [0:5] val [0:15]; 		 ////value of outputs at diff. steps
+	integer i_val = 0;
+	reg [0:1] stt_val = 0;
+	reg [0:2] stt_next_line = 7;
+	reg stt_e0 = 0;			    ////to set enable to 0 at the end
+	
+	initial begin
+		val[0] = 6'h03;
+		val[1] = 6'h03;
+		val[2] = 6'h03;
+		val[3] = 6'h02;
+		val[4] = 6'h02;
+		val[5] = 6'h08;
+		val[6] = 6'h00;
+		val[7] = 6'h06;
+		val[8] = 6'h00;
+		val[9] = 6'h0c;
+		val[10] = 6'h00;
+		val[11] = 6'h01;
+		val[12] = 6'h08;
+		val[13] = 6'h00;
+		val[14] = 6'h0c;
+		val[15] = 6'h00;
+	end
+	always @(posedge clk)
+	begin
+		if(cnt == 1000000)
+		begin
+			if(i_val == 14)
+			begin
+				i_val <= 0;
+				stt_val <= 3;
+				stt_line1 <= 0;
+				
+			end
+			
+			if((i_val!=14)&&(stt_val!=3))		///initialization steps
+			begin
+				case(stt_val)
+					0: begin
+						lcd_e <= 0;
+						stt_val <= 1;
+					end
+					1: begin
+						{lcd_rs, lcd_w, db7, db6, db5, db4} <= val[i_val];
+						stt_val <=2;
+					end
+					2: begin
+						lcd_e <= 1;
+						stt_val <= 0;
+						i_val <= i_val+1;
+					end
+				endcase
+			end
+			
+			if(i_line1 == 128)
+			begin
+				stt_line1 <= 3;
+				i_line1 <=0;
+				stt_next_line = 0;
+			end
+			
+			if((i_line1!=128)&&(stt_line1!=3))		///data input line1
+			begin
+				case(stt_line1)
+					0: begin
+						lcd_e <= 0;
+						stt_line1 <= 1;
+					end
+					1: begin
+						{lcd_rs, lcd_w, db7, db6, db5, db4} <= {1'b1, 1'b0, line1[i_line1], line1[i_line1+1], line1[i_line1+2], line1[i_line1+3]};
+						stt_line1 <=2;
+					end
+					2: begin
+						lcd_e <= 1;
+						stt_line1 <= 0;
+						i_line1 <= i_line1+4;
+					end
+				endcase
+			end
+			
+			if(stt_next_line!=7)			////next line
+			begin
+				case(stt_next_line)
+					0: begin
+						lcd_e <= 0;
+						stt_next_line <= 1;
+					end
+					1: begin
+						{lcd_rs, lcd_w, db7, db6, db5, db4} <= val[14];
+						stt_next_line <=2;
+					end
+					2: begin
+						lcd_e <= 1;
+						stt_next_line <= 3;
+					end
+					3: begin
+						lcd_e <= 0;
+						stt_next_line <= 4;
+					end
+					4: begin
+						{lcd_rs, lcd_w, db7, db6, db5, db4} <= val[15];
+						stt_next_line <=5;
+					end
+					5: begin
+						lcd_e <= 1;
+						stt_next_line <= 7;
+						stt_line2  <= 0;
+					end
+				endcase
+			end
+			
+			if(i_line2 == 128)
+			begin
+				stt_line2 <= 3;
+				i_line2 <=0;
+				stt_e0 = 1;
+			end
+			
+			if((i_line2!=128)&&(stt_line2!=3))		///data input line1
+			begin
+				case(stt_line2)
+					0: begin
+						lcd_e <= 0;
+						stt_line2 <= 1;
+					end
+					1: begin
+						{lcd_rs, lcd_w, db7, db6, db5, db4} <= {1'b1, 1'b0, line2[i_line2], line2[i_line2+1], line2[i_line2+2], line2[i_line2+3]};
+						stt_line2 <=2;
+					end
+					2: begin
+						lcd_e <= 1;
+						stt_line2 <= 0;
+						i_line2 <= i_line2+4;
+					end
+				endcase
+			end
+			if( stt_e0 == 1)
+			begin
+				lcd_e <= 0;
+				stt_e0 <= 0;
+			end
+
+		end
+		else
+		begin
+			cnt = cnt+1;
+		end
+	end
+endmodule
