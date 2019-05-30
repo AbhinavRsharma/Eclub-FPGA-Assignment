@@ -1,0 +1,38 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    07:48:57 05/30/2019 
+// Design Name: 
+// Module Name:    lcd_driver 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module lcd_driver(
+    input clk,
+    input [0:127] line1,
+    input [0:127] line2,
+    output lcd_rs,
+    output lcd_w,
+    output lcd_e,
+    output db7,
+    output db6,
+    output db5,
+    output db4
+    );
+	reg lcd_rs, lcd_w, lcd_e, db7, db6, db5, db4;
+	integer cnt = 0;               ///counter
+	reg [0:7] i_line1=0;
+	reg [0:7] i_line2=0;
+	reg [0:1] stt_line1
+endmodule
