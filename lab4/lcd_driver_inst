@@ -29,8 +29,6 @@ module lcd_driver_inst(
 	 output db4
     );
 	 
-	 wire lcd_rs, lcd_w, lcd_e, db7, db6, db5, db4;
-	 
 	 lcd_driver lcd1 ( clk, "Welcome to EE   ","IIT KANPUR      ", lcd_rs, lcd_w, lcd_e, db7, db6, db5, db4);
 
 
