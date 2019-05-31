@@ -87,6 +87,7 @@ module fsm(
 	always @(y)
 	begin
 		led <= rom[pre_stt][y];
+		pre_stt <=led;
 	end
 
 
