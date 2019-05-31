@@ -24,8 +24,8 @@ module fsm(
     output [0:3] led
     );
 	reg [0:2] microcoderom [0:12];
-	reg [0:3] dispatchrom3 [0:1];
-	reg [0:3] dispatchrom10 [0:1];
+	reg [0:3] dispatchrom3 [0:3];
+	reg [0:3] dispatchrom10 [0:3];
 	reg [0:3] pre_stt;
 	reg [0:3] led;
 	integer cnt = 0;                /// counter
