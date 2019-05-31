@@ -59,6 +59,9 @@ module fsm_test;
 		// Add stimulus here
 
 	end
-      
+	
+   always begin
+	#10 clk = ~clk;
+   end
 endmodule
 
