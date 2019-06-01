@@ -1,0 +1,86 @@
+`timescale 1ns / 1ps
+
+////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer:
+//
+// Create Date:   05:09:21 06/01/2019
+// Design Name:   smallest
+// Module Name:   /home/ise/lab7_a2/samllest_test.v
+// Project Name:  lab7_a2
+// Target Device:  
+// Tool versions:  
+// Description: 
+//
+// Verilog Test Fixture created by ISE for module: smallest
+//
+// Dependencies:
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+module smallest_test;
+
+	// Inputs
+	reg [0:2] a;
+	reg [0:2] b;
+	reg [0:2] c;
+	reg [0:2] d;
+	reg clk;
+
+	// Outputs
+	wire lcd_rs;
+	wire lcd_w;
+	wire lcd_e;
+	wire db7;
+	wire db6;
+	wire db5;
+	wire db4;
+
+	// Instantiate the Unit Under Test (UUT)
+	smallest uut (
+		.a(a), 
+		.b(b), 
+		.c(c), 
+		.d(d), 
+		.clk(clk), 
+		.lcd_rs(lcd_rs), 
+		.lcd_w(lcd_w), 
+		.lcd_e(lcd_e), 
+		.db7(db7), 
+		.db6(db6), 
+		.db5(db5), 
+		.db4(db4)
+	);
+
+	initial begin
+		// Initialize Inputs
+		a = 3'd3;
+		b = 3'd2;
+		c = 3'd0;
+		d = 3'd5;
+		clk = 0;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+		
+		
+       a = 3'd3;
+		b = 3'd6;
+		c = 3'd6;
+		d = 3'd1;
+		
+		#100;
+		// Add stimulus here
+
+	end
+	
+	always begin 
+	#25 clk = ~clk;
+	end
+      
+endmodule
+
