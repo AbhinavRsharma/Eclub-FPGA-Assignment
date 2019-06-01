@@ -3,7 +3,7 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    16:25:56 05/30/2019 
+// Create Date:    04:23:36 06/01/2019 
 // Design Name: 
 // Module Name:    smallest 
 // Project Name: 
@@ -19,19 +19,54 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module smallest(
-    input [0:2] a,
-    input [0:2] b,
-    input [0:2] c,
-    input [0:2] d,
-    input clk,
-    output lcd_rs,
-    output lcd_w,
-    output lcd_e,
-    output db7,
-    output db6,
-    output db5,
-    output db4
+	 input [0:2] a,
+	 input [0:2] b,
+	 input [0:2] c,
+	 input [0:2] d,
+	 input clk,
+	 output lcd_rs,
+	 output lcd_w,
+	 output lcd_e,
+	 output db7,
+	 output db6,
+	 output db5,
+	 output db4
     );
-
+	 
+	 reg [0:1] i_sml;
+	 wire g_ab;
+	 wire l_ab;
+	 wire e_ab;
+	 wire g_cd;
+	 wire l_cd;
+	 wire e_cd;
+	 wire [0:1] i_sml_ab;
+	 wire [0:1] i_sml_cd;
+	 wire [0:2] sml_ab;
+	 wire [0:2] sml_cd;
+	 wire g_ab_cd;
+	 wire l_ab_cd;
+	 wire e_ab_cd;
+	 
+	 wire [0:127] line1;
+	 wire [0:127] line2;
+	 
+	 comp3bit ab(a, b, g_ab, l_ab, e_ab);
+	 comp3bit cd(c, d, g_cd, l_cd, e_cd);
+	 
+	 assign i_sml_ab = (g_ab == 1) ? 2'b01 : 2'b00;
+	 assign i_sml_cd = (g_cd == 1) ? 2'b11 : 2'b10;
+	 
+	 assign sml_ab = (g_ab == 1) ? b : a;
+	 assign sml_cd = (g_cd == 1) ? d : c;
+	 
+	 comp3bit ab_cd(sml_ab, sml_cd, g_ab_cd, l_ab_cd, e_ab_cd);
+	 
+	 assign i_sml = (g_ab_cd==1) ? i_sml_cd : i_sml_ab;
+	 
+	 assign line1 = {"INPUT ",{5'b0,a}+8'h30,", ",{5'b0,b}+8'h30,", ",{5'b0,c}+8'h30,", ",{5'b0,d}+8'h30};
+	 assign line2 = {"MINIMUM INDEX: ",{6'b0,i_sml}+8'h30};
+	 
+	 lcd_driver lcd(clk, line1, line2, lcd_rs, lcd_w, lcd_e, db7, db6,db5, db4);
 
 endmodule
