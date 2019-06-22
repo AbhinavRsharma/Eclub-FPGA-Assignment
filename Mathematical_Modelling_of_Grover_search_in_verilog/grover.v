@@ -25,7 +25,7 @@ module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, d
 	
 	input clk, rst, start;
 	input [(num_bit-1):0] target_search;
-	output reg signed [7:0] o1, o2, o3, o4, o5, o6, o7, o0; 
+	output wire signed [7:0] o1, o2, o3, o4, o5, o6, o7, o0; 
 	output reg done;
 	
 	integer i;	genvar x; 
@@ -69,15 +69,15 @@ module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, d
 		grover_invertMean_out[0],grover_invertMean_out[1],grover_invertMean_out[2],grover_invertMean_out[3],grover_invertMean_out[4],
 		grover_invertMean_out[5],grover_invertMean_out[6],grover_invertMean_out[7]);
 	defparam groverOp2.num_bit = num_bit; defparam groverOp2.fixedpoint_bit = fixedpoint_bit; defparam groverOp2.num_sample = num_sample;
-
-	assign o0= regOut[0];
-	assign o1= regOut[1];
-	assign o2= regOut[2];
-	assign o3= regOut[3];
-	assign o4= regOut[4];
-	assign o5= regOut[5];
-	assign o6= regOut[6];
-	assign o7= regOut[7];
+	
+		assign o0 = regOut[0];
+		assign o1 = regOut[1];
+		assign o2 = regOut[2];
+		assign o3 = regOut[3];
+		assign o4 = regOut[4];
+		assign o5 = regOut[5];
+		assign o6 = regOut[6];
+		assign o7 = regOut[7];
 	
 	//Iteration counter for FSM control
 	always @(posedge clk or posedge rst)
@@ -100,11 +100,11 @@ module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, d
 	always @*
 	begin 
 		case (sel_regIn)
-			0:	begin regIn <= grover_equalProb; end
-			1: begin regIn <= grover_phaseInvert_out; end
-			2: begin regIn <= grover_invertMean_out; end
-			3: begin regIn <= regOut; end
-			default:	begin regIn <= regOut; end
+			0:	begin regIn = grover_equalProb; end
+			1: begin regIn = grover_phaseInvert_out; end
+			2: begin regIn = grover_invertMean_out; end
+			3: begin regIn = regOut; end
+			default:	begin regIn = regOut; end
 		endcase
 	end
 	
