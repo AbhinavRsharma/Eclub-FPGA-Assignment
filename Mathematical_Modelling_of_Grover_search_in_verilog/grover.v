@@ -54,22 +54,30 @@ module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, d
 	endgenerate
 
 	//Shared registers for storage
-	registers regGrover (.clk(clk), .rst(rst), .en(1'b1), .in(regIn), .out(regOut));
+	registers regGrover (clk, rst, 1'b1, regIn[0], regIn[1], regIn[2], regIn[3], regIn[4], regIn[5], regIn[6], regIn[7],
+		regOut[0], regOut[1], regOut[2], regOut[3], regOut[4], regOut[5], regOut[6], regOut[7]);
 	defparam regGrover.sample_size = num_sample; defparam regGrover.complexnum_bit = fixedpoint_bit;
 	
-//	//Grover operator
-//	grover_operator groverOp (.target_search(target_search), .phaseInvert_in(regOut), .invertMean(groverOp_out));
-//	defparam groverOp.num_bit = num_bit; defparam groverOp.fixedpoint_bit = fixedpoint_bit; defparam groverOp.num_sample = num_sample; 
-	
 	//Grover Operator: Phase Inversion
-	grover_phaseInvert groverOp1 (.target_search(target_search), .phaseInvert_in(regOut), .phaseInvert_out(grover_phaseInvert_out));
+	phase_invert groverOp1 (target_search, regOut[0], regOut[1], regOut[2], regOut[3], regOut[4], regOut[5], regOut[6], regOut[7],
+		grover_phaseInvert_out[0],grover_phaseInvert_out[1],grover_phaseInvert_out[2],grover_phaseInvert_out[3],grover_phaseInvert_out[4],
+		grover_phaseInvert_out[5],grover_phaseInvert_out[6],grover_phaseInvert_out[7]);
 	defparam groverOp1.num_bit = num_bit; defparam groverOp1.fixedpoint_bit = fixedpoint_bit; defparam groverOp1.num_sample = num_sample;
 	
 	//Grover Operator: Inversion About Mean
-	grover_invertMean groverOp2 (.phaseInvert_out(regOut), .invertMean(grover_invertMean_out));
+	invert_mean groverOp2 (regOut[0], regOut[1], regOut[2], regOut[3], regOut[4], regOut[5], regOut[6], regOut[7],
+		grover_invertMean_out[0],grover_invertMean_out[1],grover_invertMean_out[2],grover_invertMean_out[3],grover_invertMean_out[4],
+		grover_invertMean_out[5],grover_invertMean_out[6],grover_invertMean_out[7]);
 	defparam groverOp2.num_bit = num_bit; defparam groverOp2.fixedpoint_bit = fixedpoint_bit; defparam groverOp2.num_sample = num_sample;
 
-	assign output_r = regOut;
+	assign o0= regOut[0];
+	assign o1= regOut[1];
+	assign o2= regOut[2];
+	assign o3= regOut[3];
+	assign o4= regOut[4];
+	assign o5= regOut[5];
+	assign o6= regOut[6];
+	assign o7= regOut[7];
 	
 	//Iteration counter for FSM control
 	always @(posedge clk or posedge rst)
