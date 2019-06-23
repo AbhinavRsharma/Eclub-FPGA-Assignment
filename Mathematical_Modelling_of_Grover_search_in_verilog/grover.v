@@ -21,7 +21,7 @@
 module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, done
 	);
 	parameter num_bit = 3; parameter fixedpoint_bit = 8; parameter num_sample = (2**num_bit); parameter sqrt_num_sample = 2**(num_bit/2.0);
-	parameter equalProb = 2**((fixedpoint_bit-2)-(num_bit/2.0)); parameter PI = 3.14159265; parameter num_ite = (PI* sqrt_num_sample)/4 -0.5;
+	parameter equalProb = 2**((fixedpoint_bit-2)-(num_bit/2.0)); parameter PI = 3.14159265; parameter num_ite = $rtoi((PI*sqrt_num_sample)/4.0-0.5) ;
 	
 	input clk, rst, start;
 	input [(num_bit-1):0] target_search;
@@ -173,10 +173,10 @@ module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, d
 			0: begin done = 1'd0; sel_regIn = 2'd0; if(start) next_state = 2'd1; else next_state = 2'd0;  end
 			1: begin done = 1'd0; sel_regIn = 2'd1; next_state = 2'd2;  end
 			2: begin done = 1'd0; sel_regIn = 2'd2; //if(ite_counter==(getNumIte(num_ite)-1)) next_state = 2'd3; else next_state = 2'd1; ; end
-																 if(ite_counter== num_ite) next_state = 2'd3; else next_state = 2'd1; ; end
+																 if(ite_counter == num_ite) next_state = 2'd3; else next_state = 2'd1; ; end
 			3: begin done = 1'd1; sel_regIn = 2'd3; next_state = 2'd3;  end
 			default: begin done = 1'd0; sel_regIn = 2'd3; next_state = 2'd0;  end
 		endcase
 	end
  
-endmodule
+ endmodule
