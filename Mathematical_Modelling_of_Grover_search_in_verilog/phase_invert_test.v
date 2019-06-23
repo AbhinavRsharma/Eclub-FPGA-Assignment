@@ -46,7 +46,7 @@ module phase_invert_test;
 	wire [7:0] o7;
 
 	// Instantiate the Unit Under Test (UUT)
-	grover_phaseInvert uut (
+	phase_invert uut (
 		.target_search(target_search), 
 		.i0(i0), 
 		.i1(i1), 
