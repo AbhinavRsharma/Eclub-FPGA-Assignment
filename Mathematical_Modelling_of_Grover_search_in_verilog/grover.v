@@ -21,7 +21,7 @@
 module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, done
 	);
 	parameter num_bit = 3; parameter fixedpoint_bit = 8; parameter num_sample = (2**num_bit); parameter sqrt_num_sample = 2**(num_bit/2.0);
-	parameter equalProb = 2**((fixedpoint_bit-2)-(num_bit/2.0)); parameter PI = 3.14159265; parameter num_ite = (PI/4.0) * sqrt_num_sample -0.5;
+	parameter equalProb = 2**((fixedpoint_bit-2)-(num_bit/2.0)); parameter PI = 3.14159265; parameter num_ite = (PI* sqrt_num_sample)/4 -0.5;
 	
 	input clk, rst, start;
 	input [(num_bit-1):0] target_search;
@@ -38,11 +38,12 @@ module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, d
 	reg [1:0] sel_regIn;
 
 	//Convert fraction number to integer
+	/*
 	function integer getNumIte(logic [31:0] in);
 	begin
 		getNumIte = in;
 	end
-	endfunction
+	endfunction*/
 	
 	//Initialization for equal probability
 	wire signed [(fixedpoint_bit-1):0] grover_equalProb [0:(num_sample-1)];
@@ -100,11 +101,56 @@ module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, d
 	always @*
 	begin 
 		case (sel_regIn)
-			0:	begin regIn = grover_equalProb; end
-			1: begin regIn = grover_phaseInvert_out; end
-			2: begin regIn = grover_invertMean_out; end
-			3: begin regIn = regOut; end
-			default:	begin regIn = regOut; end
+			0:	begin regIn[0] <= grover_equalProb[0]; 
+						regIn[1] <= grover_equalProb[1]; 
+						regIn[2] <= grover_equalProb[2]; 
+						regIn[3] <= grover_equalProb[3]; 
+						regIn[4] <= grover_equalProb[4]; 
+						regIn[5] <= grover_equalProb[5]; 
+						regIn[6] <= grover_equalProb[6]; 
+						regIn[7] <= grover_equalProb[7]; 
+						
+			end
+			1: begin 
+						regIn[0] <= grover_phaseInvert_out[0]; 
+						regIn[1] <= grover_phaseInvert_out[1]; 
+						regIn[2] <= grover_phaseInvert_out[2]; 
+						regIn[3] <= grover_phaseInvert_out[3]; 
+						regIn[4] <= grover_phaseInvert_out[4]; 
+						regIn[5] <= grover_phaseInvert_out[5]; 
+						regIn[6] <= grover_phaseInvert_out[6]; 
+						regIn[7] <= grover_phaseInvert_out[7]; 
+						end
+			2: begin 
+						regIn[0] <= grover_invertMean_out[0]; 
+						regIn[1] <= grover_invertMean_out[1]; 
+						regIn[2] <= grover_invertMean_out[2]; 
+						regIn[3] <= grover_invertMean_out[3]; 
+						regIn[4] <= grover_invertMean_out[4]; 
+						regIn[5] <= grover_invertMean_out[5]; 
+						regIn[6] <= grover_invertMean_out[6]; 
+						regIn[7] <= grover_invertMean_out[7]; 
+						end
+			3: begin 
+						regIn[0] <= regOut[0]; 
+						regIn[1] <= regOut[1]; 
+						regIn[2] <= regOut[2]; 
+						regIn[3] <= regOut[3]; 
+						regIn[4] <= regOut[4]; 
+						regIn[5] <= regOut[5]; 
+						regIn[6] <= regOut[6]; 
+						regIn[7] <= regOut[7]; 
+						end
+			default:	begin 
+						regIn[0] <= regOut[0]; 
+						regIn[1] <= regOut[1]; 
+						regIn[2] <= regOut[2]; 
+						regIn[3] <= regOut[3]; 
+						regIn[4] <= regOut[4]; 
+						regIn[5] <= regOut[5]; 
+						regIn[6] <= regOut[6]; 
+						regIn[7] <= regOut[7]; 
+						end
 		endcase
 	end
 	
@@ -126,7 +172,8 @@ module grover (clk, rst, start, target_search, o0, o1, o2, o3, o4, o5, o6, o7, d
 		case (state)
 			0: begin done = 1'd0; sel_regIn = 2'd0; if(start) next_state = 2'd1; else next_state = 2'd0;  end
 			1: begin done = 1'd0; sel_regIn = 2'd1; next_state = 2'd2;  end
-			2: begin done = 1'd0; sel_regIn = 2'd2; if(ite_counter==(getNumIte(num_ite)-1)) next_state = 2'd3; else next_state = 2'd1; ; end
+			2: begin done = 1'd0; sel_regIn = 2'd2; //if(ite_counter==(getNumIte(num_ite)-1)) next_state = 2'd3; else next_state = 2'd1; ; end
+																 if(ite_counter== num_ite) next_state = 2'd3; else next_state = 2'd1; ; end
 			3: begin done = 1'd1; sel_regIn = 2'd3; next_state = 2'd3;  end
 			default: begin done = 1'd0; sel_regIn = 2'd3; next_state = 2'd0;  end
 		endcase
