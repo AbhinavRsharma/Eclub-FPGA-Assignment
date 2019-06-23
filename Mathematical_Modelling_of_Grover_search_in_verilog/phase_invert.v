@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module grover_phaseInvert (target_search, i0, i1, i2, i3, i4, i5, i6, i7, o0, o1, o2, o3, o4, o5, o6, o7
+module phase_invert (target_search, i0, i1, i2, i3, i4, i5, i6, i7, o0, o1, o2, o3, o4, o5, o6, o7
     );
 	 parameter num_bit = 3;parameter fixedpoint_bit = 24;parameter num_sample = 2**num_bit;
 	 input [2:0] target_search;
