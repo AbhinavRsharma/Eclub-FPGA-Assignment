@@ -82,14 +82,15 @@ assign sin_2p_by4[3] = 12'b110000000000;
 calc_stt_vector c1(in_r0, in_r1, in_r2, in_r3, in_i0, in_i1, in_i2, in_i3, out_r0, out_i0,
 	cos_2p_by1[0], sin_2p_by1[0], cos_2p_by1[1], sin_2p_by1[1], cos_2p_by1[2], sin_2p_by1[2], cos_2p_by1[3], sin_2p_by1[3]);
 	
-calc_stt_vector c2(in_r0, in_r1, in_r2, in_r3, in_i0, in_i1, in_i2, in_i3, out_r0, out_i0,
-	cos_2p_by1[0], sin_2p_by1[0], cos_2p_by1[1], sin_2p_by1[1], cos_2p_by1[2], sin_2p_by1[2], cos_2p_by1[3], sin_2p_by1[3]);
+calc_stt_vector c2(in_r0, in_r1, in_r2, in_r3, in_i0, in_i1, in_i2, in_i3, out_r1, out_i1,
+	cos_2p_by2[0], sin_2p_by2[0], cos_2p_by2[1], sin_2p_by2[1], cos_2p_by2[2], sin_2p_by2[2], cos_2p_by2[3], sin_2p_by2[3]);
 	
-calc_stt_vector c3(in_r0, in_r1, in_r2, in_r3, in_i0, in_i1, in_i2, in_i3, out_r0, out_i0,
-	cos_2p_by1[0], sin_2p_by1[0], cos_2p_by1[1], sin_2p_by1[1], cos_2p_by1[2], sin_2p_by1[2], cos_2p_by1[3], sin_2p_by1[3]);
+calc_stt_vector c3(in_r0, in_r1, in_r2, in_r3, in_i0, in_i1, in_i2, in_i3, out_r2, out_i2,
+	cos_2p_by3[0], sin_2p_by3[0], cos_2p_by3[1], sin_2p_by3[1], cos_2p_by3[2], sin_2p_by3[2], cos_2p_by3[3], sin_2p_by3[3]);
 	
-calc_stt_vector c4(in_r0, in_r1, in_r2, in_r3, in_i0, in_i1, in_i2, in_i3, out_r0, out_i0,
-	cos_2p_by1[0], sin_2p_by1[0], cos_2p_by1[1], sin_2p_by1[1], cos_2p_by1[2], sin_2p_by1[2], cos_2p_by1[3], sin_2p_by1[3]);
+calc_stt_vector c4(in_r0, in_r1, in_r2, in_r3, in_i0, in_i1, in_i2, in_i3, out_r3, out_i3,
+	cos_2p_by4[0], sin_2p_by4[0], cos_2p_by4[1], sin_2p_by4[1], cos_2p_by4[2], sin_2p_by4[2], cos_2p_by4[3], sin_2p_by4[3]);
+
 
 
 endmodule
