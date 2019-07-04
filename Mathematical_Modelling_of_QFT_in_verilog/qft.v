@@ -25,8 +25,8 @@ module qft( clk, in_r0, in_r1, in_r2, in_r3, in_i0, in_i1, in_i2, in_i3,
 input clk;
 input wire signed [7:0] in_r0, in_r1, in_r2, in_r3;// 1 sign bit, 7 integer bits  
 input wire signed [7:0] in_i0, in_i1, in_i2, in_i3;
-input wire signed [12:0] out_r0, out_r1, out_r2, out_r3;
-input wire signed [12:0] out_i0, out_i1, out_i2, out_i3;// 1 sign bit, 7 integer bits, 5 fractional bits
+output wire signed [12:0] out_r0, out_r1, out_r2, out_r3;
+output wire signed [12:0] out_i0, out_i1, out_i2, out_i3;// 1 sign bit, 7 integer bits, 5 fractional bits
 
 //// Matrix elements
 wire signed [11:0] sin_2p_by1 [0:3];// 1 sign bit, 1 integer bits, 10 fractional bits
