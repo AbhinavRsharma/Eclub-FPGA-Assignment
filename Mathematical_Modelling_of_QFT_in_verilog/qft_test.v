@@ -34,14 +34,14 @@ module qft_test;
 	reg [7:0] in_i1;
 	reg [7:0] in_i2;
 	reg [7:0] in_i3;
-	reg [12:0] out_r0;
-	reg [12:0] out_r1;
-	reg [12:0] out_r2;
-	reg [12:0] out_r3;
-	reg [12:0] out_i0;
-	reg [12:0] out_i1;
-	reg [12:0] out_i2;
-	reg [12:0] out_i3;
+	wire [12:0] out_r0;
+	wire [12:0] out_r1;
+	wire[12:0] out_r2;
+	wire [12:0] out_r3;
+	wire [12:0] out_i0;
+	wire [12:0] out_i1;
+	wire [12:0] out_i2;
+	wire [12:0] out_i3;
 
 	// Instantiate the Unit Under Test (UUT)
 	qft uut (
@@ -75,14 +75,6 @@ module qft_test;
 		in_i1 = 0;
 		in_i2 = 0;
 		in_i3 = 0;
-		out_r0 = 0;
-		out_r1 = 0;
-		out_r2 = 0;
-		out_r3 = 0;
-		out_i0 = 0;
-		out_i1 = 0;
-		out_i2 = 0;
-		out_i3 = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
