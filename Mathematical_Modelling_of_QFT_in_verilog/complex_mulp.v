@@ -27,19 +27,46 @@ output wire signed [12:0] out_r;// 1 sign bit, 7 integer bits, 5 fractional bits
 output wire signed [12:0] out_i;
 
 //// Matrix elements
-input wire signed [11:0] sin_2p_by;// 1 sign bit, 1 integer bits, 10 fractional bits
-input wire signed [11:0] cos_2p_by;
+input signed [11:0] sin_2p_by;// 1 sign bit, 1 integer bits, 10 fractional bits
+input signed [11:0] cos_2p_by;
 
 wire signed [17:0] in_r_temp, in_i_temp; 
-wire signed [17:0] cos, sin;
+reg [11:0] cos_temp, sin_temp;
+reg signed [17:0] cos, sin;
 wire signed [34:0] out_r_temp1, out_i_temp1, out_r_temp2, out_i_temp2;
 reg signed [35:0] out_r_temp3, out_i_temp3;
 reg signed [12:0] out_r_temp4, out_i_temp4;
 
 assign in_r_temp = {in_r,10'd0};
 assign in_i_temp = {in_i,10'd0};
-assign cos = {cos_2p_by[11],6'd0,cos_2p_by[10:0]};
-assign sin = {sin_2p_by[11],6'd0,sin_2p_by[10:0]};
+
+
+always @*
+begin 
+	cos_temp = cos_2p_by;
+	sin_temp = sin_2p_by;
+		if(cos_temp[11])
+		begin
+			cos_temp = cos_temp-1;
+			cos_temp = ~cos_temp;
+			cos = {7'd0,cos_temp[10:0]};
+			cos = -cos;
+		end
+		else begin
+			cos = {cos_temp[11],6'd0,cos_temp[10:0]};
+		end
+		
+		if(sin_temp[11])
+		begin
+			sin_temp = sin_temp-1;
+			sin_temp = ~sin_temp;
+			sin = {7'd0,sin_temp[10:0]};
+			sin = -sin;
+		end
+		else begin
+			sin = {sin_temp[11],6'd0,sin_temp[10:0]};
+		end
+end
 
 
 assign out_r_temp1 = cos*in_r_temp;
@@ -69,10 +96,10 @@ begin
 			out_i_temp3 = out_i_temp3-1;
 			out_i_temp3 = ~out_i_temp3;
 			out_i_temp3 = out_i_temp3[27:17];
-			out_i_temp4 = ~out_i_temp4;
+			out_i_temp4 = -out_i_temp4;
 		end
 		else begin
-			assign out_i_temp4 = out_i_temp3[27:17];
+			out_i_temp4 = out_i_temp3[27:17];
 		end
 end
 
